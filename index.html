@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Holiday Chess - 1Gambler</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(#0f2027, #203a43, #2c5364);
+      overflow: hidden;
+      font-family: sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #board {
+      width: 90vw;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+
+    .greeting {
+      display: none;
+      font-size: 2em;
+      margin-top: 20px;
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Schneeflocken */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: white;
+      font-size: 1em;
+      animation: fall linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="board"></div>
+  <div class="greeting" id="greeting">🎄 Happy Holidays from 1Gambler! 🎄</div>
+
+  <!-- Schneeflocken -->
+  <script>
+    for (let i = 0; i < 50; i++) {
+      const snowflake = document.createElement("div");
+      snowflake.className = "snowflake";
+      snowflake.style.left = `${Math.random() * 100}vw`;
+      snowflake.style.fontSize = `${Math.random() * 10 + 10}px`;
+      snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+      snowflake.textContent = "❄";
+      document.body.appendChild(snowflake);
+    }
+  </script>
+
+  <script src="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/1.0.0/chess.min.js"></script>
+  <script>
+    const board = Chessboard('board', {
+      position: '6k1/5ppp/8/8/8/8/5PPP/5QK1 w - - 0 1',
+      draggable: true,
+      onDrop: onDrop
+    });
+
+    const game = new Chess('6k1/5ppp/8/8/8/8/5PPP/5QK1 w - - 0 1');
+
+    function onDrop(source, target) {
+      const move = game.move({ from: source, to: target, promotion: 'q' });
+      if (move === null) return 'snapback';
+      board.position(game.fen());
+
+      if (game.in_checkmate()) {
+        document.getElementById('greeting').style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
