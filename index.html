@@ -2,14 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>1Gambler Holiday Chess</title>
-  <link rel="stylesheet" href="chessground/chessground.css">
+  <title>1Gambler Xmas Chess</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="chessground/chessground.css">
+  <style>
+    .snowflake-overlay {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      pointer-events: none;
+      opacity: 0.8;
+      z-index: 10;
+    }
+  </style>
 </head>
 <body>
-  <div id="board"></div>
-  <div id="message" class="hidden">🎄 Happy Holidays from 1Gambler! 🎄</div>
-  <canvas id="snow"></canvas>
+  <div id="board" style="width: 400px; height: 400px; margin: 100px auto; position: relative;"></div>
+  <img src="assets/snowflake_knight.png" class="snowflake-overlay" alt="Snowflake Knight">
   <script src="chessground/chessground.min.js"></script>
   <script src="script.js"></script>
 </body>
