@@ -1,3 +1,4 @@
+const { Chessground } = window;
 const ground = Chessground(document.getElementById('board'), {
   fen: '6k1/5ppp/8/8/8/8/5PPP/6K1 w - - 0 1',
   turnColor: 'white',
