@@ -1,117 +1,17 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Weihnachts-Schachbrett - 1Gambler</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <!-- Chessground CSS lokal -->
-  <link rel="stylesheet" href="assets/chessground.min.css" />
-  
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: radial-gradient(#0f2027, #203a43, #2c5364);
-      color: white;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #board {
-      width: 90vw;
-      max-width: 400px;
-      aspect-ratio: 1 / 1;
-      margin: 20px auto;
-    }
-
-    .greeting {
-      display: none;
-      margin-top: 20px;
-      font-size: 2em;
-      text-align: center;
-      animation: fadeIn 2s ease-in-out forwards;
-      user-select: none;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* Schneeflocken */
-    .snowflake {
-      position: fixed;
-      top: -10px;
-      color: white;
-      font-size: 1em;
-      animation: fall linear infinite;
-      opacity: 0.8;
-      user-select: none;
-      pointer-events: none;
-      z-index: 1000;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(100vh);
-      }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1Gambler Xmas Chess</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="snow"></div>
   <div id="board"></div>
-  <div class="greeting" id="greeting">🎄 Happy Holidays from 1Gambler! 🎄</div>
+  <div id="message" hidden>🎄 Happy Holidays from 1Gambler! 🎅</div>
 
-  <!-- Schneeflocken erzeugen -->
-  <script>
-    for (let i = 0; i < 50; i++) {
-      const snowflake = document.createElement("div");
-      snowflake.className = "snowflake";
-      snowflake.style.left = `${Math.random() * 100}vw`;
-      snowflake.style.fontSize = `${Math.random() * 10 + 10}px`;
-      snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
-      snowflake.textContent = "❄";
-      document.body.appendChild(snowflake);
-    }
-  </script>
-
-  <!-- Chessground JS lokal -->
-  <script src="assets/chessground.min.js"></script>
-  <script src="assets/chess.min.js"></script>
-
-  <script>
-    const game = new Chess();
-
-    const ground = Chessground(document.getElementById('board'), {
-      fen: game.fen(),
-      draggable: true,
-      movable: {
-        free: false,
-        color: 'white',
-        showDests: true,
-        events: {
-          after: onMove
-        }
-      }
-    });
-
-    function onMove(from, to) {
-      const move = game.move({ from, to, promotion: 'q' });
-      if (move === null) {
-        ground.set({ fen: game.fen() });
-        return;
-      }
-      ground.set({ fen: game.fen() });
-
-      if (game.in_checkmate()) {
-        document.getElementById('greeting').style.display = 'block';
-      }
-    }
-  </script>
+  <script src="./chessground/chessground.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
